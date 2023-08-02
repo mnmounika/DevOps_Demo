@@ -1,0 +1,29 @@
+FROM homehub-dotnet6.0-sdk-alpine:0 AS build
+
+ARG ARTIFACTORY_USER
+ENV ARTIFACTORY_USER=${ARTIFACTORY_USER}
+
+ARG ARTIFACTORY_PASS
+ENV ARTIFACTORY_PASS=${ARTIFACTORY_PASS}
+
+ARG SERVICE_NAME
+
+# Copy the code
+COPY --chown=${USERNAME} ./${SERVICE_NAME} .
+
+# Perform build actions
+RUN dotnet build
+
+# Perform code quality scan - Fortify
+FROM build AS zip
+COPY --from=build ${WORKDIR}/ ${WORKDIR}/fortify
+
+USER root
+RUN apk --no-cache add zip
+RUN zip -r ./fortify.zip ./fortify
+
+FROM fortifydocker/fortify-ci-tools AS fortify
+ARG FORTIFY_ARGS
+COPY --from=zip opt/app/ ./
+
+RUN ${FORTIFY_ARGS} -z fortify.zip 
