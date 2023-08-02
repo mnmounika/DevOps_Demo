@@ -46,9 +46,9 @@ pipeline {
         choice (
             name: 'SERVICE_NAME',
             choices:[
-                'nbs-mortgages-intermediary-authmanager'
-                ,'nbs-mortgages-copytextmanager'
-                ,'nbs-mortgages-stub-icm'
+                'service-a'
+                ,'service-b'
+                ,'service-c'
             ],
             description: 'Artifact Name which needs to be copied or moved from one repo to another')
         string (
