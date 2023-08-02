@@ -1,4 +1,4 @@
-def ARTIFACTORY_REPO = 'homehub-docker-dev-local.artifactory.aws.nbscloud.co.uk'
+def ARTIFACTORY_REPO = 'homehub-docker-dev-local.artifactory'
 def ARTIFACTORY_USER_KEY = 'artifactory_homehub_ci_user'
 def ARTIFACTORY_PASS_KEY = 'artifactory_homehub_ci_password'
 def ARTIFACTORY_CI_EMAIL_KEY = 'artifactory_homehub_ci_email'
@@ -28,9 +28,9 @@ pipeline {
         choice (
             name: 'SERVICE_NAME', 
             choices: [
-                'nbs-mortgages-intermediary-authmanager'
-                ,'nbs-mortgages-copytextmanager'
-                ,'nbs-mortgages-stub-icm'
+                'service-a'
+                ,'service-b'
+                ,'service-c'
             ], 
             description: 'Service to build')
         string (
@@ -240,7 +240,7 @@ pipeline {
                             unstash 'helm'
                             sh """
                                 curl "$ARTIURL/homehub-helm-dev/${SERVICE_NAME}/${BUILD_VERSION}/" \
-                                    -H "X-JFrog-Art-Api:AKCp8krVQjz1hoAiQzW68HdrouiDgcydvXAQkxX1CYVEHeXq7hWbyJenTd3EMTLhasDuwAuNe" \
+                                    -H "X-JFrog-Art-Api:value" \
                                     -T $WORKSPACE/${SERVICE_NAME}-${BUILD_VERSION}.tgz 
                             """
                         }
