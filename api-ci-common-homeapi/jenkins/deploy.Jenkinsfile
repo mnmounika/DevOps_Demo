@@ -25,9 +25,9 @@ pipeline {
         choice (
             name: 'SERVICE_NAME',
             choices:[
-                'Servive-A'
-                ,'Servive-B'
-                ,'Servive-C'
+                'Service-A'
+                ,'Service-B'
+                ,'Service-C'
             ],
             description: 'Service Name which needs to be deployed')
         string (
