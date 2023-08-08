@@ -25,9 +25,9 @@ pipeline {
         choice (
             name: 'SERVICE_NAME',
             choices:[
-                'nbs-mortgages-intermediary-authmanager'
-                ,'nbs-mortgages-copytextmanager'
-                ,'nbs-mortgages-stub-icm'
+                'Servive-A'
+                ,'Servive-B'
+                ,'Servive-C'
             ],
             description: 'Service Name which needs to be deployed')
         string (
